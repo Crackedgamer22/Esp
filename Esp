@@ -1,0 +1,35 @@
+local Players = game:GetService("Players")
+
+-- Function to create a highlight for a player
+local function highlightPlayer(player)
+    local highlight = Instance.new("Highlight")
+    highlight.Parent = player.Character
+    highlight.FillColor = Color3.fromRGB(255, 0, 0) -- Set fill color to red
+    highlight.OutlineColor = Color3.fromRGB(0, 0, 255) -- Set outline color to blue
+end
+
+-- Function to highlight all players in the game
+local function highlightAllPlayers()
+    for _, player in ipairs(Players:GetPlayers()) do
+        highlightPlayer(player)
+    end
+end
+
+-- Function to refresh highlighting every 1 second
+local function refreshHighlighting()
+    while true do
+        highlightAllPlayers()
+        wait(1) -- Wait for 1 second before refreshing
+    end
+end
+
+-- Highlight all players when they join the game
+Players.PlayerAdded:Connect(function(player)
+    highlightPlayer(player)
+end)
+
+-- Initially highlight all players
+highlightAllPlayers()
+
+-- Start refreshing highlighting
+refreshHighlighting()
